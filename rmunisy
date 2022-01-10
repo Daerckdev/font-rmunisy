@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import fontforge
 from pathlib import Path
 from sys import exit as abort
