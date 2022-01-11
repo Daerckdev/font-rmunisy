@@ -52,7 +52,7 @@ def main() -> bool:
     parser = ArgumentParser(description="Delete unicode characters from a font using FontForge")
     parser.add_argument('fonts_path', type=Path, nargs="+", help="The path to the fonts to patch")
     parser.add_argument('-i', dest="unicode", required=True, type=Path, help="The path of the file contain the unicodes to delete")
-    parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("build"), help="Output Directory (default: working directory)")
+    parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("build"), help="Output Directory (default: ./build)")
     arguments_manager = parser.parse_args()
 
     # Run the program with default settings
