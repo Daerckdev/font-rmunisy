@@ -47,15 +47,19 @@ class RMUnisy():
         return True
 
 
-def main():
+def main() -> bool:
+    # Resolve arguments
     parser = ArgumentParser(description="Delete unicode characters from a font using FontForge")
     parser.add_argument('fonts_path', type=Path, nargs="+", help="The path to the fonts to patch")
     parser.add_argument('-i', dest="unicode", required=True, type=Path, help="The path of the file contain the unicodes to delete")
     parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("build"), help="Output Directory (default: working directory)")
     arguments_manager = parser.parse_args()
 
+    # Run the program with default settings
     program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_path=arguments_manager.unicode, output_dir=arguments_manager.output_dir)
     program.patch(name_marked=False)
+
+    return True
 
 if __name__ == "__main__":
     from argparse import ArgumentParser
