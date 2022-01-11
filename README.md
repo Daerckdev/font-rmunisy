@@ -12,7 +12,7 @@ so they make more difficult to correctly set up fonts.
 For now you can only install it by cloning this repository:
 
 ```
-  git clone https://github.com/Daerckdev/font-rmunisy.git
+git clone https://github.com/Daerckdev/font-rmunisy.git
 ```
 
 ## Dependency
@@ -27,11 +27,19 @@ To use this tool you must have installed:
 Run the script with the correct auguments:
 
 ```
-rmunisy *path_files_to_patch* -i *path_file_with_unicode* -o *output_directory*
+rmunisy *path_files_to_patch* -i *unicode_chars_to_delete* -o *output_directory*
 ```
 
-**WINDOWS ONLY** you have to esplicity run the script with python
+Every unicodes characters must be write as a decimal number.
 
-### Format of file contain the unicode characters to remove
+\***WINDOWS ONLY**\* you have to esplicity run the script with python
 
-Each unicode must be write as a decimal number and in a different line. (see [Example](https://github.com/Daerckdev/font-rmunisy/blob/Master/unicode_exemple.txt))
+## Program Arguments
+
+| Argument | Required | Help | Notes |
+| :--- | :--- | :--- | :--- |
+| `--help` or `-h` | No | Print the help section | |
+| `-i` | If there isn't `-if` | Get unicode characters to delete as a string | Chars must be separted by a space |
+| `-if` | If there isn't `-i` | Get unicode characters to delete by a file | Each chars must be in a different line (see [Example](https://github.com/Daerckdev/font-rmunisy/blob/Master/unicode_exemple.txt) |
+| `-o` | No | Output\_directory | |
+

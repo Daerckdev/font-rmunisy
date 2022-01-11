@@ -5,31 +5,35 @@ from pathlib import Path
 from sys import exit as abort
 
 class RMUnisy():
-    def __init__(self, fonts: list, unicode_path: Path, output_dir: Path) -> None:
+    def __init__(self, fonts: list, unicode_data: tuple, output_dir: Path) -> None:
         # check arguments
         for font in fonts:
             self.is_file(font)
-        self.is_file(unicode_path)
         self.is_dir(output_dir)
 
         # init object
+        self.unicode = self.get_unicode(unicode_data)
         self.fonts = fonts
-        self.unicode = self.get_unicode(unicode_path)
         self.output_dir = output_dir
 
     def is_file(self, path: Path) -> bool:
         if path.is_file():
             return True
-        abort(f"RMUnisy: {path} is not a file.")
+        abort(f"{self.__class__.__name__}: {path} is not a file.")
 
     def is_dir(self, path: Path) -> bool:
         if path.is_dir():
             return True
-        abort(f"RMUnisy: {path} is not a directory.")
+        abort(f"{self.__class__.__name__}: {path} is not a directory.")
 
-    def get_unicode(self, file: Path) -> list:
-        with file.open() as file:
-            unicodes = [int(u) for u in file.read().strip().split("\n")]
+    def get_unicode(self, data: tuple) -> list:
+        if data[1]:
+            raw = data[0].split(" ")
+        else:
+            self.is_file(data[0])
+            with open(data[0], "r") as file:
+                raw = file.read().strip().split("\n")
+        unicodes = [int(u) for u in raw]
         return unicodes
 
     def patch(self, name_marked: bool=True) -> bool:
@@ -51,12 +55,19 @@ def main() -> bool:
     # Resolve arguments
     parser = ArgumentParser(description="Delete unicode characters from a font using FontForge")
     parser.add_argument('fonts_path', type=Path, nargs="+", help="The path to the fonts to patch")
-    parser.add_argument('-i', dest="unicode", required=True, type=Path, help="The path of the file contain the unicodes to delete")
+    parser.add_argument('-if', dest="unicode", type=Path, help="The path of the file contain the unicodes to delete")
+    parser.add_argument('-i', dest="unicode", type=str, default="", help="A string with the unicode characters to remove (separated by a space)")
     parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("build"), help="Output Directory (default: ./build)")
     arguments_manager = parser.parse_args()
 
-    # Run the program with default settings
-    program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_path=arguments_manager.unicode, output_dir=arguments_manager.output_dir)
+    if type(arguments_manager.unicode) is str:
+        if arguments_manager.unicode == "":
+            abort("RMUnisy: There is no unicode characters to delete")
+        string = True
+    else:
+        string = False
+
+    program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_data=(arguments_manager.unicode, string), output_dir=arguments_manager.output_dir)
     program.patch(name_marked=False)
 
     return True
