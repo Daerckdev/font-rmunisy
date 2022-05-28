@@ -8,20 +8,20 @@ class RMUnisy():
     def __init__(self, fonts: list, unicode_data, output_dir: Path) -> None:
         # check arguments
         for font in fonts:
-            self.is_file(font)
-        self.is_dir(output_dir)
+            self.__isfile(font)
+        self.__isdir(output_dir)
 
         # init object
         self.unicode = self.get_unicode(unicode_data)
         self.fonts = fonts
         self.output_dir = output_dir
 
-    def is_file(self, path: Path) -> bool:
+    def __isfile(self, path: Path) -> bool:
         if path.is_file():
             return True
         abort(f"{self.__class__.__name__}: {path} is not a file.")
 
-    def is_dir(self, path: Path) -> bool:
+    def __isdir(self, path: Path) -> bool:
         if path.is_dir():
             return True
         abort(f"{self.__class__.__name__}: {path} is not a directory.")
@@ -32,7 +32,7 @@ class RMUnisy():
                 abort(f"{self.__class__.__name__}: There is no unicode characters to delete")
             raw = data.split(" ")
         else:
-            self.is_file(data)
+            self.__isfile(data)
             with open(data, "r") as file:
                 raw = file.read().strip().split("\n")
         unicodes = [int(u) for u in raw]
