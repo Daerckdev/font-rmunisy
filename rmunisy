@@ -30,7 +30,7 @@ class RMUnisy():
         if isinstance(data, str):
             if data == "":
                 abort(f"{self.__class__.__name__}: There is no unicode characters to delete")
-            raw = data.split(" ")
+            raw = data.strip().split(" ")
         else:
             self.__isfile(data)
             with open(data, "r") as file:
