@@ -56,7 +56,7 @@ def main() -> bool:
     parser.add_argument('fonts_path', type=Path, nargs="+", help="The path to the fonts to patch")
     parser.add_argument('-if', dest="unicode", type=Path, help="The path of the file contain the unicodes to delete")
     parser.add_argument('-i', dest="unicode", type=str, default="", help="A string with the unicode characters to remove (separated by a space)")
-    parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("build"), help="Output Directory (default: ./build)")
+    parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("."), help="Output Directory (default is working dir)")
     parser.add_argument('--mark=', dest="mark", required=False, type=str, default="", help="String to add to the patched file's name")
     arguments_manager = parser.parse_args()
 
