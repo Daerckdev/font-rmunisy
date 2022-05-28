@@ -5,7 +5,7 @@ from pathlib import Path
 from sys import exit as abort
 
 class RMUnisy():
-    def __init__(self, fonts: list, unicode_data: tuple, output_dir: Path) -> None:
+    def __init__(self, fonts: list, unicode_data, output_dir: Path) -> None:
         # check arguments
         for font in fonts:
             self.is_file(font)
@@ -26,12 +26,14 @@ class RMUnisy():
             return True
         abort(f"{self.__class__.__name__}: {path} is not a directory.")
 
-    def get_unicode(self, data: tuple) -> list:
-        if data[1]:
-            raw = data[0].split(" ")
+    def get_unicode(self, data) -> list:
+        if isinstance(data, str):
+            if data == "":
+                abort(f"{self.__class__.__name__}: There is no unicode characters to delete")
+            raw = data.split(" ")
         else:
-            self.is_file(data[0])
-            with open(data[0], "r") as file:
+            self.is_file(data)
+            with open(data, "r") as file:
                 raw = file.read().strip().split("\n")
         unicodes = [int(u) for u in raw]
         return unicodes
@@ -46,6 +48,7 @@ class RMUnisy():
             for unicode in self.unicode:
                 font.selection.select(("unicode", None), unicode)
                 font.clear()
+                print(unicode, "removed")
             font.generate(f"{self.output_dir}/{path.stem}{name_mark}{path.suffix}")
             font.close()
         return True
@@ -60,14 +63,7 @@ def main() -> bool:
     parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("build"), help="Output Directory (default: ./build)")
     arguments_manager = parser.parse_args()
 
-    if type(arguments_manager.unicode) is str:
-        if arguments_manager.unicode == "":
-            abort("RMUnisy: There is no unicode characters to delete")
-        string = True
-    else:
-        string = False
-
-    program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_data=(arguments_manager.unicode, string), output_dir=arguments_manager.output_dir)
+    program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_data=arguments_manager.unicode, output_dir=arguments_manager.output_dir)
     program.patch(name_marked=False)
 
     return True
