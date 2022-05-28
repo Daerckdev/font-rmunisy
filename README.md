@@ -27,10 +27,10 @@ To use this tool you must have installed:
 Run the script with the correct auguments:
 
 ```
-rmunisy *path_files_to_patch* -i *unicode_chars_to_delete* -o *output_directory*
+rmunisy *path_files_to_patch* -i *unicode_chars_to_delete*
 ```
 
-Every unicodes characters must be write as a **decimal number**.
+Every unicodes characters must be write as a **decimal number**. (e.g. U**263A** -> **9786**)
 
 **\*WINDOWS ONLY\*** you have to esplicity run the script with python
 
@@ -42,4 +42,5 @@ Every unicodes characters must be write as a **decimal number**.
 | `-i` | If there <br/>is no `-if` | Get unicode characters to delete as a string | Chars must be separted by a space |
 | `-if` | If there <br/>is no `-i` | Get unicode characters to delete by a file | Each chars must be in a different line (see [Example](https://github.com/Daerckdev/font-rmunisy/blob/Master/unicode_exemple.txt)) |
 | `-o` | No | Output directory | |
+| `--mark=` | No | String to add to the patched file's name | |
 
