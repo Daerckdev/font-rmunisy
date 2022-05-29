@@ -41,10 +41,8 @@ class RMUnisy():
     def patch(self, name_mark: str="") -> bool:
         for path in self.fonts:
             font = fontforge.open(str(path))
-            for unicode in self.unicode:
-                font.selection.select(("unicode", None), unicode)
-                font.clear()
-                print(unicode, "removed")
+            font.selection.select(("unicode", None), *self.unicode)
+            font.clear()
             font.generate(f"{self.output_dir}/{path.stem}{name_mark}{path.suffix}")
             font.close()
         return True
