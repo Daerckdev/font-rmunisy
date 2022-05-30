@@ -37,12 +37,18 @@ class RMUnisy():
                 data = file.read().strip().split("\n")
         return data
 
-    def get_unicode(self, raw, ishex=False) -> list:
+    def get_unicode(self, raw, ishex: bool=False) -> list:
         data = self.__clean_data(raw)
         if ishex:
-            unicodes = [int(u, 16) for u in data]
+            try:
+                unicodes = [int(u, 16) for u in data]
+            except ValueError:
+                abort(f"{self.__class__.__name__}: Invalid hexadecimal unicode")
         else:
-            unicodes = [int(u) for u in data]
+            try:
+                unicodes = [int(u) for u in data]
+            except ValueError:
+                abort(f"{self.__class__.__name__}: Invalid decimal unicode")
         return unicodes
 
     def patch(self, name_mark: str="") -> bool:
