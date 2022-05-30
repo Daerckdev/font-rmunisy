@@ -41,6 +41,7 @@ Every unicodes characters must be write as a **decimal number**. (e.g. U**263A**
 | `--help` <br/>`-h` | No | Print the help section | |
 | `-i` | If there <br/>is no `-if` | Get unicode characters to delete as a string | Chars must be separted by a space |
 | `-if` | If there <br/>is no `-i` | Get unicode characters to delete by a file | Each chars must be in a different line (see [Example](https://github.com/Daerckdev/font-rmunisy/blob/Master/unicode_exemple.txt)) |
+| `-e` | No | Treats input unicodes as hexadecimal | By default they will be treat as decimal |
 | `-o` | No | Output directory | By default is the working directory |
 | `--mark=` | No | String to add to the patched file's name | |
 
