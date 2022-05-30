@@ -65,11 +65,11 @@ def main() -> bool:
     # Resolve arguments
     parser = ArgumentParser(description="Delete unicode characters from a font using FontForge")
     parser.add_argument('fonts_path', type=Path, nargs="+", help="The path to the fonts to patch")
-    parser.add_argument('-i', dest="unicode", type=str, default="", help="A string with the unicode characters to remove (separated by a space)")
-    parser.add_argument('-if', dest="unicode", type=Path, help="The path of the file contain the unicodes to delete")
-    parser.add_argument('-e', dest="ishex", action="store_true", default=False, help="Treats input unicodes as hexadecimal (by default they will be treat as decimal)")
-    parser.add_argument('-o', dest="output_dir", required=False, type=Path, default=Path("."), help="Output Directory (default is working dir)")
-    parser.add_argument('--mark=', dest="mark", required=False, type=str, default="", help="String to add to the patched file's name")
+    parser.add_argument('-i', '--input', dest="unicode", type=str, default="", help="A string with the unicode characters to remove (separated by a space)")
+    parser.add_argument('-if', '--input-file', dest="unicode", type=Path, help="The path of the file contain the unicodes to delete")
+    parser.add_argument('-e', '--hexadecimal', dest="ishex", action="store_true", default=False, help="Treats input unicodes as hexadecimal (by default they will be treat as decimal)")
+    parser.add_argument('-o', '--output-dir', dest="output_dir", required=False, type=Path, default=Path("."), help="Output Directory (default is working dir)")
+    parser.add_argument('-m', '--mark=', dest="mark", required=False, type=str, default="", help="String to add to the patched file's name")
     arguments_manager = parser.parse_args()
 
     program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_data=(arguments_manager.unicode, arguments_manager.ishex), output_dir=arguments_manager.output_dir)
