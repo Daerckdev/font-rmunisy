@@ -30,7 +30,7 @@ Run the script with the correct auguments:
 rmunisy *path_files_to_patch* -i *unicode_chars_to_delete*
 ```
 
-Every unicodes characters must be write as a **decimal number**. (e.g. U**263A** -> **9786**)
+By default every unicodes characters must be write as a **decimal number** (e.g. (U)**263A** -> **9786**), to use hexadecimal input use the `-e` argument.
 
 **\*WINDOWS ONLY\*** you have to esplicity run the script with python
 
@@ -39,9 +39,9 @@ Every unicodes characters must be write as a **decimal number**. (e.g. U**263A**
 | Argument | Required | Help | Notes |
 | :--- | :--- | :--- | :--- |
 | `--help` <br/>`-h` | No | Print the help section | |
-| `-i` | If there <br/>is no `-if` | Get unicode characters to delete as a string | Chars must be separted by a space |
-| `-if` | If there <br/>is no `-i` | Get unicode characters to delete by a file | Each chars must be in a different line (see [Example](https://github.com/Daerckdev/font-rmunisy/blob/Master/unicode_exemple.txt)) |
-| `-e` | No | Treats input unicodes as hexadecimal | By default they will be treat as decimal |
-| `-o` | No | Output directory | By default is the working directory |
-| `--mark=` | No | String to add to the patched file's name | |
+| `-i` `--input` | If there <br/>is no `-if` | A string with the unicode characters to remove | Chars must be separted by a space |
+| `-if` `--input-file` | If there <br/>is no `-i` | The path of the file contain the unicodes to delete | Each chars must be in a different line (see [Example](https://github.com/Daerckdev/font-rmunisy/blob/Master/unicode_exemple.txt)) |
+| `-e` `--hexadecimal` | No | Treats input unicodes as hexadecimal | By default they will be treat as decimal |
+| `-o` `--output-dir` | No | Output directory | By default is the working directory |
+| `-m` `--mark=` | No | String to add to the patched file's name | |
 
