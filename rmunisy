@@ -5,7 +5,7 @@ from pathlib import Path
 from sys import exit as abort
 
 class RMUnisy():
-    def __init__(self, fonts: list, unicode_data: tuple, output_dir: Path) -> None:
+    def __init__(self, fonts: list, unicode_data: tuple, output_dir: Path, name_mark: str="") -> None:
         # check arguments
         for font in fonts:
             self.__isfile(font)
@@ -15,6 +15,7 @@ class RMUnisy():
         self.unicode = self.get_unicode(*unicode_data)
         self.fonts = fonts
         self.output_dir = output_dir
+        self.name_mark = name_mark
 
     def __isfile(self, path: Path) -> bool:
         if path.is_file():
@@ -51,12 +52,12 @@ class RMUnisy():
                 abort(f"{self.__class__.__name__}: Invalid decimal unicode")
         return unicodes
 
-    def patch(self, name_mark: str="") -> bool:
+    def patch(self) -> bool:
         for path in self.fonts:
             font = fontforge.open(str(path))
             font.selection.select(("unicode", None), *self.unicode)
             font.clear()
-            font.generate(f"{self.output_dir}/{path.stem}{name_mark}{path.suffix}")
+            font.generate(f"{self.output_dir}/{path.stem}{self.name_mark}{path.suffix}")
             font.close()
         return True
 
@@ -72,8 +73,9 @@ def main() -> bool:
     parser.add_argument('-m', '--mark=', dest="mark", required=False, type=str, default="", help="String to add to the patched file's name")
     arguments_manager = parser.parse_args()
 
-    program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_data=(arguments_manager.unicode, arguments_manager.ishex), output_dir=arguments_manager.output_dir)
-    program.patch(arguments_manager.mark)
+    program = RMUnisy(fonts=arguments_manager.fonts_path, unicode_data=(arguments_manager.unicode, arguments_manager.ishex),
+                      output_dir=arguments_manager.output_dir, name_mark=arguments_manager.mark)
+    program.patch()
 
     return True
 
