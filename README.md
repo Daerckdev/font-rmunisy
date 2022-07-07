@@ -41,7 +41,16 @@ By default every unicodes characters must be write as a **decimal number** (e.g.
 | `--help` <br/>`-h` | No | Print the help section | |
 | `-i` `--input` | If there <br/>is no `-if` | A string with the unicode characters to remove | Chars must be separted by a space |
 | `-if` `--input-file` | If there <br/>is no `-i` | The path of the file contain the unicodes to delete | Each chars must be in a different line (see [Example](https://github.com/Daerckdev/font-rmunisy/blob/Master/unicode_exemple.txt)) |
-| `-e` `--hexadecimal` | No | Treats input unicodes as hexadecimal | By default they will be treat as decimal |
+| `-b` `--base` | No | The number base of the unicodes in input. (usually 10 or 16) | By default the number base is 10 |
 | `-o` `--output-dir` | No | Output directory | By default is the working directory |
 | `-m` `--mark=` | No | String to add to the patched file's name | |
+
+## Input special characters
+
+### Range
+
+You can select a range of unicodes by putting `-` between them without spaces.
+```
+rmunisy *fonts* -i "1 5 3 50-100"
+```
 
