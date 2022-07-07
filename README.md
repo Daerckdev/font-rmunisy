@@ -30,7 +30,7 @@ Run the script with the correct auguments:
 rmunisy *path_files_to_patch* -i *unicode_chars_to_delete*
 ```
 
-By default every unicodes characters must be write as a **decimal number** (e.g. (U)**263A** -> **9786**), to use hexadecimal input use the `-e` argument.
+By default every unicodes characters must be written as a **decimal number** (e.g. (U)**263A** -> **9786**), to use another base use the `-b` argument.
 
 **\*WINDOWS ONLY\*** you have to esplicity run the script with python
 
@@ -45,7 +45,7 @@ By default every unicodes characters must be write as a **decimal number** (e.g.
 | `-o` `--output-dir` | No | Output directory | By default is the working directory |
 | `-m` `--mark=` | No | String to add to the patched file's name | |
 
-## Input special characters
+## Special characters for input
 
 ### Range
 
